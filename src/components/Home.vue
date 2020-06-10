@@ -1,15 +1,18 @@
 <template>
-  <div class="hello">
+  <div class="container">
     <Introduction />
+    <Products />
   </div>
 </template>
 
 <script>
 import Introduction from '../sections/Introduction'
+import Products from '../sections/Products'
 export default {
   name: 'Home',
   components: {
-    Introduction
+    Introduction,
+    Products
   }
 }
 </script>
