@@ -1,12 +1,16 @@
 <template>
   <div class="hello">
-    <h1>Home</h1>
+    <Introduction />
   </div>
 </template>
 
 <script>
+import Introduction from '../sections/Introduction'
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    Introduction
+  }
 }
 </script>
 

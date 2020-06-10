@@ -1,4 +1,10 @@
-# shopile
+# Ecommerce Application
+
+## Technologies
+- Vuejs
+- Firebase
+- AWS (Amazon Web Server)
+- API
 
 ## Project setup
 ```
@@ -19,6 +25,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
