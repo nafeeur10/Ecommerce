@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <Login />
     <Navbar />
     <div class="container">
       <Introduction />
@@ -11,11 +12,14 @@
 </template>
 
 <script>
+
 import Navbar from '../sections/Navbar'
 import Introduction from '../sections/Introduction'
 import Products from '../sections/Products'
 import ContactUs from '../sections/ContactUs'
 import Footer from '../sections/Footer'
+import Login from './Login'
+
 export default {
   name: 'Home',
   components: {
@@ -23,7 +27,8 @@ export default {
     Introduction,
     Products,
     ContactUs,
-    Footer
+    Footer,
+    Login
   }
 }
 </script>

@@ -10,7 +10,7 @@
        </div>
         <div id="page-content" class="category-sidebar-width">
             <div class="container">
-                <p class="text-left">lskdfjls</p>
+                <router-view></router-view>
             </div>
         </div>
     </div>
