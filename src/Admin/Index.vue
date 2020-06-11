@@ -1,0 +1,44 @@
+<template>
+    <div>
+        <!-- Main Navbar-->
+      <header class="header">
+        <Navbar />
+      </header>
+      <div class="page-content d-flex align-items-stretch"> 
+        <!-- Side Navbar -->
+        <Sidebar />
+       </div>
+        <div id="page-content" class="category-sidebar-width">
+            <div class="container">
+                <p class="text-left">lskdfjls</p>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import $ from 'jquery'
+import Sidebar from './Layout/Sidebar'
+import Navbar from './Layout/Navbar'
+export default {
+    methods: {
+        sidebar() {
+
+            if($("#CategorySidebarID").hasClass('show')) {
+                $("#page-content").removeClass("category-sidebar-width");
+                $("#CategorySidebarID").removeClass('show');
+                $("#CategorySidebarID").addClass('hide');
+            }
+            else {
+                $("#page-content").addClass("category-sidebar-width");
+                $("#CategorySidebarID").addClass('show');
+                $("#CategorySidebarID").removeClass('hide');
+            }
+            
+        }
+    },
+    components: {
+        Navbar,
+        Sidebar
+    }
+}
+</script>

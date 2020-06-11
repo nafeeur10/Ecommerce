@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 import Home from '../components/Home'
 import About from '../components/About'
+import Admin from '../Admin/Index'
 
 export const constantRoutes = [
     {
@@ -15,6 +16,11 @@ export const constantRoutes = [
         path: '/about',
         component: About,
         name: 'About',
+    },
+    {
+        path: '/admin',
+        component: Admin,
+        name: 'Admin',
     }
 ]
 

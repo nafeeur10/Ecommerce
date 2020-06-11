@@ -1,12 +1,17 @@
 <template>
   <div>
+    <Navbar />
     <h1>About</h1>
   </div>
 </template>
 
 <script>
+import Navbar from '../sections/Navbar'
 export default {
-  name: 'About'
+  name: 'About',
+  components: {
+    Navbar
+  }
 }
 </script>
 

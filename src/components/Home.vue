@@ -1,5 +1,6 @@
 <template>
-  <div class="mai">
+  <div class="main">
+    <Navbar />
     <div class="container">
       <Introduction />
       <Products />
@@ -10,6 +11,7 @@
 </template>
 
 <script>
+import Navbar from '../sections/Navbar'
 import Introduction from '../sections/Introduction'
 import Products from '../sections/Products'
 import ContactUs from '../sections/ContactUs'
@@ -17,6 +19,7 @@ import Footer from '../sections/Footer'
 export default {
   name: 'Home',
   components: {
+    Navbar,
     Introduction,
     Products,
     ContactUs,
