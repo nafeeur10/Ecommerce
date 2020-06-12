@@ -36,15 +36,15 @@
                 <div class="d-flex flex-column text-center">
                     <form>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="name" placeholder="Your Name here...">
+                            <input type="text" v-model="name" class="form-control" id="name" placeholder="Your Name here...">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" id="email1" placeholder="Your email address...">
+                            <input type="email" v-model="email" class="form-control" id="email1" placeholder="Your email address...">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="password1" placeholder="Your password...">
+                            <input type="password" v-model="password" class="form-control" id="password1" placeholder="Your password...">
                         </div>
-                        <button type="button" class="btn btn-info btn-block btn-round">Register</button>
+                        <button type="button" class="btn btn-info btn-block btn-round" @click="register">Register</button>
                     </form>
                 </div>
             </div>
@@ -56,3 +56,32 @@
   </div>
 </div>
 </template>
+<script>
+import { fb } from '../firebase'
+import $ from 'jquery'
+export default {
+    data() {
+        return {
+            name: null,
+            email: null,
+            password: null
+        }
+    },
+    methods: {
+        register() {
+            fb.auth().createUserWithEmailAndPassword(this.email, this.password)
+            .then(()=>{
+                $('#loginModal').modal('hide');
+                this.$router.replace('admin');
+            })
+            .catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // 
+                alert("Error Code: " + errorCode + " Error Message: " + errorMessage);
+            });
+        }
+    }
+}
+</script>

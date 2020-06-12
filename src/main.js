@@ -8,7 +8,6 @@ import 'popper.js'
 window.$ = window.jQuery = jQuery
 
 import './assets/app.scss'
-
 import router from './router'
 
 Vue.config.productionTip = false
