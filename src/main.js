@@ -12,7 +12,14 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-new Vue({
-  router,
-  render: h => h(App),
-}).$mount('#app')
+import { fb } from './firebase'
+let app = '';
+fb.auth().onAuthStateChanged(function(user) {
+  console.log(user);
+  if (!app) {
+    new Vue({
+      router,
+      render: h => h(App),
+    }).$mount('#app')
+  }
+});

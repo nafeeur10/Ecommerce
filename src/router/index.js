@@ -8,8 +8,14 @@ import Admin from '../Admin/Index'
 import Products from '../Admin/View/Products'
 import Overview from '../Admin/View/Overview'
 import Orders from '../Admin/View/Orders'
+import { fb } from '../firebase'
 
 export const constantRoutes = [
+    {
+        path: '*',
+        component: Home,
+        name: 'Home',
+    },
     {
         path: '/',
         component: Home,
@@ -24,6 +30,9 @@ export const constantRoutes = [
         path: '/admin',
         component: Admin,
         name: 'Admin',
+        meta: {    
+            requiresAuth: true   
+        },
         children: [
             {
                 path: '/',
@@ -48,8 +57,20 @@ const createRouter = () => new Router({
     mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes
-  })
+});
+
   
-const router = createRouter()
+const router = createRouter();
+
+router.beforeEach((to, from, next) => {
+
+    const currentUser = fb.auth().currentUser;
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+    if( requiresAuth && !currentUser ) next('/');
+    else if(!requiresAuth && currentUser) next();
+    else next();
+
+});
 
 export default router

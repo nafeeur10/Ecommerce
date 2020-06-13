@@ -5,9 +5,9 @@
             <!-- Navbar Header-->
             <div class="navbar-header">
             <!-- Navbar Brand -->
-            <a href="index.html" class="navbar-brand d-none d-sm-inline-block"> 
+            <router-link to="/" class="navbar-brand d-none d-sm-inline-block"> 
                 S H O P I L E
-            </a>
+            </router-link>
             <!-- Toggle Button
             <a id="toggle-btn" @click="sidebar" href="javascript:void(0)" class="menu-btn active"><span></span><span></span><span></span></a> -->
             </div>
@@ -25,10 +25,27 @@
                 <i class="fas fa-envelope"></i><span class="badge bg-orange badge-corner">10</span></a>
             </li>
             <!-- Logout -->
-            <li class="nav-item"><a href="login.html" class="nav-link logout"> 
-                <span class="d-none d-sm-inline">Logout</span><i class="fas fa-sign-out-alt"></i></a></li>
+            <li class="nav-item">
+                <a @click="signout" class="nav-link logout cursor-pointer"> 
+                    <span class="d-none d-sm-inline">Logout</span><i class="fas fa-sign-out-alt"></i>
+                </a>
+            </li>
             </ul>
         </div>
         </div>
     </nav>
 </template>
+<script>
+import { fb } from '../../firebase'
+export default {
+    methods: {
+        signout() {
+            fb.auth().signOut().then( () => {
+                this.$router.replace('/');
+            }).catch( (error) => {
+                alert("Error " + error);
+            });
+        }
+    }
+}
+</script>
