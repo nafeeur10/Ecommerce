@@ -6,7 +6,13 @@
             <div class="navbar-header">
             <!-- Navbar Brand -->
             <router-link to="/" class="navbar-brand d-none d-sm-inline-block"> 
-                S H O P I L E
+                <span class="text-danger text-bold"> S </span> 
+                <span class="text-success text-bold"> H </span> 
+                <span class="text-info text-bold">O</span> 
+                <span class="text-danger text-bold"> P </span> 
+                <span class="text-dark  text-bold"> I </span>
+                <span class="text-danger text-bold"> L </span> 
+                <span class="text-dark text-bold"> E </span>
             </router-link>
             <!-- Toggle Button
             <a id="toggle-btn" @click="sidebar" href="javascript:void(0)" class="menu-btn active"><span></span><span></span><span></span></a> -->

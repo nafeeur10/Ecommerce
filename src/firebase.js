@@ -1,7 +1,11 @@
 import firebase from 'firebase'
+require("firebase/firestore");
 
 const firebaseConfig = {
-    
+   
   };
 
-export const fb = firebase.initializeApp(firebaseConfig);
+const fb = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+export { fb, db }

@@ -657,7 +657,6 @@ body {
   * ==========================================================
   */
   nav.navbar {
-    background: #2f333e;
     padding-top: 15px;
     padding-bottom: 15px;
     color: #fff;
@@ -3614,6 +3613,7 @@ body {
 
 .sidebar-sticky {
     background-color: white;
+    border-top: 1px solid #e8e8e8;
     border-right: 1px solid #e8e8e8;
     top: 0;
     height: 100vh;
