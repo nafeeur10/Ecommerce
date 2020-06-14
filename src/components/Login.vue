@@ -21,20 +21,20 @@
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <div class="d-flex flex-column text-center">
-                    <form>
+                    <form v-on:keyup.enter="login">
                         <div class="form-group">
-                            <input type="email" class="form-control" id="email1" placeholder="Your email address...">
+                            <input type="email" v-model="email" class="form-control" id="email" placeholder="Your email address...">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="password1" placeholder="Your password...">
+                            <input type="password" v-model="password" class="form-control" id="password" placeholder="Your password...">
                         </div>
-                        <button type="button" class="btn btn-info btn-block btn-round">Login</button>
+                        <button type="button" class="btn btn-info btn-block btn-round" @click="login">Login</button>
                     </form>
                 </div>
             </div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="d-flex flex-column text-center">
-                    <form>
+                    <form v-on:keyup.enter="register">
                         <div class="form-group">
                             <input type="text" v-model="name" class="form-control" id="name" placeholder="Your Name here...">
                         </div>
@@ -68,6 +68,20 @@ export default {
         }
     },
     methods: {
+        login() {
+            fb.auth().signInWithEmailAndPassword(this.email, this.password)
+            .then(() => {
+                $("#loginModal").modal('hide');
+                this.$router.replace('/admin')
+            })
+            .catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert("Error Code: " + errorCode + "Error Message: " + errorMessage);
+                // ...
+            });
+        },
         register() {
             fb.auth().createUserWithEmailAndPassword(this.email, this.password)
             .then(()=>{
