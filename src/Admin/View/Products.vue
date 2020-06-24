@@ -5,7 +5,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <form class="card">
+                    <form class="card" v-if="editForm===false">
 
                         <div class="card-header bg-info text-white">
                             Add New Product
@@ -26,6 +26,28 @@
                         </div>
                         
                     </form>
+
+                    <form class="card" v-else>
+
+                        <div class="card-header bg-info text-white">
+                            Edit Product
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="product_name" class="text-left w-100">Product Name</label>
+                                <input type="text" class="form-control" v-model="formData.product_name" placeholder="Enter Product Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="product_price"  class="text-left w-100">Product Price</label>
+                                <input type="text" class="form-control" v-model="formData.product_price" placeholder="Enter Product Price">
+                            </div>
+                        
+                            <button type="button" class="btn btn-primary" @click="UpdateData">Edit Product</button>
+                        </div>
+                        
+                    </form>
                 </div>
                 <div class="col-md-6">
                     <table class="table">
@@ -42,7 +64,7 @@
                                 <td>{{ product.data().product_name }}</td>
                                 <td>${{ product.data().product_price }}</td>
                                 <td>
-                                    <button class="btn btn-success btn-sm">Edit</button>
+                                    <button class="btn btn-success btn-sm" @click="UpdateProduct(product)">Edit</button>
                                     <button class="btn btn-danger btn-sm" @click="DeleteProduct(product.id)">Delete</button>
                                 </td>
                             </tr>
@@ -50,8 +72,8 @@
                     </table>
                 </div>
             </div>
-            
         </div>
+        
     </div>
 </template>
 <script>
@@ -59,6 +81,8 @@ import { db } from '../../firebase'
 export default {
     data() {
         return {
+            activeItem: null,
+            editForm: false,
             products: [],
             formData: {
                 product_name: null,
@@ -67,6 +91,15 @@ export default {
         }
     },
     methods: {
+        UpdateData() {
+            db.collection("products").doc(this.activeItem).update(this.formData)
+            .then(function() {
+                console.log("Document successfully updated!");
+            })
+            .catch(function(error) {
+                console.error("Error updating document: ", error);
+            });
+        },
         StoreData() {
             db.collection("products").add(this.formData)
             .then( (docRef) => {
@@ -88,12 +121,28 @@ export default {
             });
         },
         DeleteProduct(el) {
-            db.collection("products").doc(el).delete().then(function() {
-                console.log("Document successfully deleted!");
-            }).catch(function(error) {
-                console.error("Error removing document: ", error);
-            });
+            if(confirm('Are you sure ?'))
+            {
+                db.collection("products").doc(el).delete().then(function() {
+                    console.log("Document successfully deleted!");
+                }).catch(function(error) {
+                    console.error("Error removing document: ", error);
+                });
+            }
+            else 
+            {
+                console.log("No need to delete.");
+            }
+            
+        },
+        UpdateProduct(product)
+        {
+            this.editForm = true
+            this.formData.product_name = product.data().product_name
+            this.formData.product_price = product.data().product_price
+            this.activeItem = product.id
         }
+
     },
     created() {
         this.ReadData();

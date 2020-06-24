@@ -23,12 +23,12 @@
             <!-- Notifications -->
             <li class="nav-item dropdown"> 
                 <a id="notifications" class="nav-link">
-                <i class="fas fa-bell"></i><span class="badge bg-red badge-corner">12</span></a>
+                <i class="fas fa-bell text-dark"></i><span class="badge bg-red badge-corner">12</span></a>
             </li>
             <!-- Messages -->
             <li class="nav-item dropdown"> 
                 <a id="messages" class="nav-link">
-                <i class="fas fa-envelope"></i><span class="badge bg-orange badge-corner">10</span></a>
+                <i class="fas fa-envelope text-dark"></i><span class="badge bg-orange badge-corner">10</span></a>
             </li>
             <!-- Logout -->
             <li class="nav-item">

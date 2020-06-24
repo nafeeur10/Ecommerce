@@ -2,7 +2,6 @@ import firebase from 'firebase'
 require("firebase/firestore");
 
 const firebaseConfig = {
-   
   };
 
 const fb = firebase.initializeApp(firebaseConfig);
