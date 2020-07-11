@@ -1,79 +1,13 @@
 <template>
     <div class="products">
-        <div class="container mt-5">
-
-
+        <div class="container mt-5 w-100">
             <div class="row">
-                <div class="col-md-6">
-                    <form class="card" v-if="editForm===false">
-
-                        <div class="card-header bg-info text-white">
-                            Add New Product
-                        </div>
-
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="product_name" class="text-left w-100">Product Name</label>
-                                <input type="text" class="form-control" id="product_name" v-model="formData.product_name" placeholder="Enter Product Name">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="product_price"  class="text-left w-100">Product Price</label>
-                                <input type="text" class="form-control" id="product_price" v-model="formData.product_price" placeholder="Enter Product Price">
-                            </div>
-                        
-                            <button type="button" class="btn btn-primary" @click="StoreData">Add Product</button>
-                        </div>
-                        
-                    </form>
-
-                    <form class="card" v-else>
-
-                        <div class="card-header bg-info text-white">
-                            Edit Product
-                        </div>
-
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="product_name" class="text-left w-100">Product Name</label>
-                                <input type="text" class="form-control" v-model="formData.product_name" placeholder="Enter Product Name">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="product_price"  class="text-left w-100">Product Price</label>
-                                <input type="text" class="form-control" v-model="formData.product_price" placeholder="Enter Product Price">
-                            </div>
-                        
-                            <button type="button" class="btn btn-primary" @click="UpdateData">Edit Product</button>
-                        </div>
-                        
-                    </form>
-                </div>
-                <div class="col-md-6">
-                    <table class="table">
-                        <thead class="bg-warning">
-                            <tr>
-                                <th scope="col">Product Name</th>
-                                <th scope="col">Product Price</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(product, key, index) in products" :key="index">
-                                <!-- <th scope="row">{{ key+1 }}</th> -->
-                                <td>{{ product.data().product_name }}</td>
-                                <td>${{ product.data().product_price }}</td>
-                                <td>
-                                    <button class="btn btn-success btn-sm" @click="UpdateProduct(product)">Edit</button>
-                                    <button class="btn btn-danger btn-sm" @click="DeleteProduct(product.id)">Delete</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <router-link to="/admin/products/add" class="btn btn-primary float-left d-block">Add New Product</router-link>
             </div>
         </div>
-        
+        <div class="row">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 <script>
@@ -91,9 +25,27 @@ export default {
         }
     },
     methods: {
+
+        firestore () {
+            return {
+                // Collection
+                products: db.collection('products')
+            }
+        },
+
+
+        watcher() {
+            db.collection("products").onSnapshot((querySnapshot) => {
+                this.products = [];
+                querySnapshot.forEach( (doc) => {
+                    this.products.push(doc);
+                });
+            });
+        },
         UpdateData() {
             db.collection("products").doc(this.activeItem).update(this.formData)
-            .then(function() {
+            .then(() => {
+                this.watcher();
                 console.log("Document successfully updated!");
             })
             .catch(function(error) {

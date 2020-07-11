@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueFirestore from 'vue-firestore'
 
 import jQuery from 'jquery'
 import 'bootstrap'
@@ -10,7 +11,11 @@ window.$ = window.jQuery = jQuery
 import './assets/app.scss'
 import router from './router'
 
+Vue.use(VueFirestore)
 Vue.config.productionTip = false
+
+
+export const eventBus = new Vue();
 
 import { fb } from './firebase'
 let app = '';

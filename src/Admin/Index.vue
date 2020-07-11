@@ -3,16 +3,13 @@
         <!-- Main Navbar-->
       <header class="header">
         <Navbar />
-      </header>
-      <div class="page-content d-flex align-items-stretch"> 
-        <!-- Side Navbar -->
         <Sidebar />
-       </div>
-        <div id="page-content" class="category-sidebar-width">
-            <div class="container">
-                <router-view></router-view>
-            </div>
+      </header>
+      <div id="page-content" class="category-sidebar-width">
+        <div class="container">
+            <router-view></router-view>
         </div>
+      </div>
     </div>
 </template>
 <script>

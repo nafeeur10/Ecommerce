@@ -9,6 +9,8 @@ import Products from '../Admin/View/Products'
 import Overview from '../Admin/View/Overview'
 import Orders from '../Admin/View/Orders'
 import { fb } from '../firebase'
+import AddProduct from '../Admin/View/ProductComponents/AddProduct'
+import ProductList from '../Admin/View/ProductComponents/ProductList'
 
 export const constantRoutes = [
     {
@@ -43,6 +45,18 @@ export const constantRoutes = [
                 path: 'products',
                 component: Products,
                 name: 'Products',
+                children: [
+                    {
+                        path: '/',
+                        component: ProductList,
+                        name: 'ProductList',
+                    },
+                    {
+                        path: 'add',
+                        component: AddProduct,
+                        name: 'AddProduct',
+                    }
+                ]
             },
             {
                 path: 'orders',
