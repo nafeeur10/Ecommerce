@@ -20,7 +20,7 @@
 
                     <div class="form-group">
                         <label for="product_tag"  class="text-left w-100">Product Tags</label>
-                        <input type="text" class="form-control" v-model="formData.product_tag" placeholder="Enter Product Tags">
+                        <input type="text" class="form-control" v-on:keyup.enter="onEnterTag" v-model="tag" placeholder="Enter Product Tags">
                     </div>
 
                     <div class="form-group">
@@ -33,7 +33,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="product_description" class="text-left w-100">Product Description</label>
-                        <textarea class="form-control" v-model="formData.product_description" placeholder="Enter Product Description" cols="30" rows="10"></textarea>
+                        <vue-editor v-model="formData.product_description"></vue-editor>
                     </div>
                 </div>
             </div>
@@ -46,6 +46,8 @@
 </template>
 <script>
 import { db } from '../../../firebase'
+import Swal from 'sweetalert2'
+import { VueEditor } from "vue2-editor";
 export default {
     data() {
         return {
@@ -58,9 +60,14 @@ export default {
                 product_description: null,
                 product_price: null,
                 product_image: null,
-                product_tag: null
-            }
+                product_tag: []
+            },
+            tag: null
         }
+    },
+
+    components: {
+        VueEditor
     },
 
     firestore () {
@@ -74,6 +81,11 @@ export default {
         StoreData() {
             this.$firestore.products.add(this.formData)
             .then((data) => {
+                Swal.fire(
+                    'Good job!',
+                    'Product Added Successfully!',
+                    'success'
+                )
                 this.$router.push('/admin/products');
                 console.log(data);
             })
@@ -81,12 +93,19 @@ export default {
                 console.log("Something is wrong");
                 console.log(err);
             })
-        }
+        },
 
+        onEnterTag() {
+            this.formData.product_tag.push(this.tag);
+            this.tag = null
+            console.log(this.formData.product_tag)
+        }
     },
 
     created() {
-        this.formData = this.$route.params.product;
+        if(this.$route.params.product) {
+            this.formData = this.$route.params.product;
+        }
         console.log(this.formData)
     }
 }

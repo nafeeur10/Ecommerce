@@ -15,7 +15,8 @@
     "popper.js": "^1.16.1",
     "vue": "^2.6.11",
     "vue-firestore": "^0.3.30",
-    "vue-router": "^3.3.2"
+    "vue-router": "^3.3.2",
+    "vue2-editor": "^2.10.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",
