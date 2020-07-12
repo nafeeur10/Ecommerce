@@ -1,5 +1,7 @@
 import firebase from 'firebase'
 require("firebase/firestore");
+import 'firebase/firebase-auth'
+import 'firebase/storage'
 
 const firebaseConfig = {
     

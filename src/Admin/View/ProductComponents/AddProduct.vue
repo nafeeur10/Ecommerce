@@ -21,11 +21,26 @@
                     <div class="form-group">
                         <label for="product_tag"  class="text-left w-100">Product Tags</label>
                         <input type="text" class="form-control" v-on:keyup.enter="onEnterTag" v-model="tag" placeholder="Enter Product Tags">
+                        <div class="d-flex">
+                            <span class="badge badge-secondary p-1 mt-2 mr-1" v-for="(tag, index) in formData.product_tag" :key="index">
+                                {{ tag }}
+                            </span>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="product_image"  class="text-left w-100">Product Image</label>
-                        <input type="file" class="form-control" placeholder="Enter Product Image Here">
+                        <input type="file" class="form-control" @change="uploadImage" placeholder="Enter Product Image Here">
+                        <div class="d-flex mt-3">
+                            <div v-for="(product, index) in formData.product_images" :key="index">
+                                <img :src="product" alt="" width="100px" class="p-1 img-position">
+                                <span>
+                                    <sup>
+                                        <img @click="deleteImage(product, index)" class="img-cross" src="https://img.icons8.com/flat_round/20/000000/delete-sign.png"/>
+                                    </sup>
+                                </span>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -45,7 +60,7 @@
   </div>
 </template>
 <script>
-import { db } from '../../../firebase'
+import { fb, db } from '../../../firebase'
 import Swal from 'sweetalert2'
 import { VueEditor } from "vue2-editor";
 export default {
@@ -59,7 +74,7 @@ export default {
                 product_name: null,
                 product_description: null,
                 product_price: null,
-                product_image: null,
+                product_images: [],
                 product_tag: []
             },
             tag: null
@@ -99,6 +114,51 @@ export default {
             this.formData.product_tag.push(this.tag);
             this.tag = null
             console.log(this.formData.product_tag)
+        },
+
+        uploadImage(e) {
+
+            if(e.target.files[0]) {
+
+                let file = e.target.files[0];
+                var storageRef = fb.storage().ref('products/' + file);
+
+                let uploadTask = storageRef.put(file);
+
+                uploadTask.on('state_changed', (snapshot) => {
+                    console.log(snapshot);
+                    }, (error) => {
+                        console.log(error);
+                    }, () => {
+                    
+                    uploadTask.snapshot.ref.getDownloadURL().then( (downloadURL) => {
+                        this.formData.product_images.push(downloadURL);
+                    });
+                });
+            }
+            
+        },
+
+        deleteImage(product, index) {
+
+            let image = fb.storage().refFromURL(product);
+
+            this.formData.product_images.splice(index, 1);
+
+            image.delete().then(()=> {
+                Swal.fire(
+                    'Good job!',
+                    'Product Deleted Successfully!',
+                    'success'
+                )
+            }).catch((error)=> {
+                Swal.fire(
+                    'Ops!',
+                    'Something Missing!',
+                    'warning'
+                )
+                console.log(error);
+            })
         }
     },
 
@@ -110,3 +170,17 @@ export default {
     }
 }
 </script>
+<style scoped>
+.img-position {
+    position: relative;
+    border: 1px solid #000;
+    margin-right: 10px;
+    box-shadow: 0 1px 6px rgba(57,73,76,.35);
+}
+
+.img-cross {
+    position: absolute;
+    top: -30px;
+    right: -5px;
+}
+</style>
