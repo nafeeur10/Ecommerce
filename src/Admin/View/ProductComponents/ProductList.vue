@@ -1,5 +1,10 @@
 <template>
     <div class="products w-100">
+        <div class="container mt-5 ml-3 w-100">
+            <div class="row">
+                <router-link to="/admin/products/add" class="btn btn-primary float-left d-block">Add New Product</router-link>
+            </div>
+        </div>
         <div class="container mt-5 w-100">
             <div class="row">
                 <div class="col-md-12">

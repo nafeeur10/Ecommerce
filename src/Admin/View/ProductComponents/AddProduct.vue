@@ -1,7 +1,10 @@
 <template>
   <div class="container mt-5">
     <form class="card">
-        <div class="card-header bg-info text-white">
+        <div class="card-header bg-info text-white" v-if="formData.product_name">
+            Edit Product
+        </div>
+        <div class="card-header bg-info text-white" v-else>
             Add Product
         </div>
 
@@ -53,7 +56,8 @@
                 </div>
             </div>
         
-            <button type="button" class="btn btn-primary" @click="StoreData">Add Product</button>
+            <button type="button" class="btn btn-primary" @click="StoreData" v-if="formData.product_name">Update Product</button>
+            <button type="button" class="btn btn-primary" @click="StoreData" v-else>Add Product</button>
         </div>
         
     </form>
