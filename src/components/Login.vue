@@ -36,7 +36,7 @@
                 <div class="d-flex flex-column text-center">
                     <form v-on:keyup.enter="register">
                         <div class="form-group">
-                            <input type="text" v-model="name" class="form-control" id="name" placeholder="Your Name here...">
+                            <input type="text" v-model="profile.name" class="form-control" id="name" placeholder="Your Name here...">
                         </div>
                         <div class="form-group">
                             <input type="email" v-model="email" class="form-control" id="email1" placeholder="Your email address...">
@@ -57,14 +57,19 @@
 </div>
 </template>
 <script>
-import { fb } from '../firebase'
+import { fb, db } from '../firebase'
 import $ from 'jquery'
 export default {
     data() {
         return {
             name: null,
             email: null,
-            password: null
+            password: null,
+            profile: {
+                name: null,
+                mobile: null,
+                postcode: null
+            }
         }
     },
     methods: {
@@ -84,8 +89,16 @@ export default {
         },
         register() {
             fb.auth().createUserWithEmailAndPassword(this.email, this.password)
-            .then(()=>{
+            .then((user)=>{
                 $('#loginModal').modal('hide');
+                //console.log(this.profile.name)
+                db.collection('profiles').doc(user.user.uid).set({
+                    name: this.profile.name
+                }).then( () => {
+                    console.log("Document Successfully Written!");
+                }).catch( (err)=> {
+                    console.log("Error:  ",  err);
+                })
                 this.$router.replace('admin');
             })
             .catch(function(error) {

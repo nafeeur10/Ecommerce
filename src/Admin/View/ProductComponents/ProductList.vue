@@ -1,5 +1,5 @@
 <template>
-    <div class="products w-100">
+    <div class="products w-100 mt-5">
         <div class="container mt-5 ml-3 w-100">
             <div class="row">
                 <router-link to="/admin/products/add" class="btn btn-primary float-left d-block">Add New Product</router-link>
@@ -73,10 +73,10 @@ export default {
                 if (result.value) {
                     this.$firestore.products.doc(product['.key']).delete();
                     Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
                 }
             })
 

@@ -39,3 +39,10 @@ export default {
     }
 }
 </script>
+<style scoped>
+.header {
+    position: fixed;
+    width: 100%;
+    background-color: white;
+}
+</style>

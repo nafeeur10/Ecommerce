@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5">
+  <div class="container mt-5p">
     <form class="card">
         <div class="card-header bg-info text-white" v-if="formData.product_name">
             Edit Product
@@ -186,5 +186,8 @@ export default {
     position: absolute;
     top: -30px;
     right: -5px;
+}
+.mt-5p {
+    margin-top: 10%;
 }
 </style>

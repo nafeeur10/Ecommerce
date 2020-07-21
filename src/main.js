@@ -15,6 +15,13 @@ Vue.use(VueFirestore)
 Vue.config.productionTip = false
 
 
+import Vue2Filters from 'vue2-filters'
+Vue.use(Vue2Filters)
+
+import VueCarousel from 'vue-carousel';
+Vue.use(VueCarousel);
+
+
 export const eventBus = new Vue();
 
 import { fb } from './firebase'

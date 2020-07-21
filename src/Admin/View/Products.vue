@@ -8,6 +8,13 @@
 <script>
 import { db } from '../../firebase'
 export default {
+    firestore () {
+        return {
+            // Collection
+            products: db.collection('products')
+        }
+    },
+    
     data() {
         return {
             activeItem: null,
@@ -20,14 +27,6 @@ export default {
         }
     },
     methods: {
-
-        firestore () {
-            return {
-                // Collection
-                products: db.collection('products')
-            }
-        },
-
 
         watcher() {
             db.collection("products").onSnapshot((querySnapshot) => {

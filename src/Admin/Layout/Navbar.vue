@@ -33,7 +33,7 @@
             <!-- Logout -->
             <li class="nav-item">
                 <a @click="signout" class="nav-link logout cursor-pointer"> 
-                    <span class="d-none d-sm-inline">Logout</span><i class="fas fa-sign-out-alt"></i>
+                    <span class="d-none d-sm-inline text-dark">Logout</span><i class="fas fa-sign-out-alt text-dark"></i>
                 </a>
             </li>
             </ul>
