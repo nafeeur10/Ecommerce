@@ -22,7 +22,26 @@
                 </form>
 
                 <button class="btn btn-outline-primary my-2 my-sm-0 ml-2" data-toggle="modal" data-target="#loginModal">Login</button>
+                <i class="fas fa-shopping-cart ml-5 text-danger fa-2x cursor-pointer" @click="changeSidebar"><sup class="p-1 rounded-circle bg-danger text-white h6">10</sup></i>
             </div>
         </div>
     </nav>
 </template>
+<script>
+import { mapState } from 'vuex'
+export default {
+    data() {
+        return {
+            
+        }
+    },
+    computed: mapState([
+        'sidebartoggle'
+    ]),
+    methods: {
+        changeSidebar() {
+            this.$store.commit('sidebartoggle', true)
+        }
+    }
+}
+</script>

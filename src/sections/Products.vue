@@ -9,13 +9,18 @@
                 >
                 <slide v-for="product in products" :key="product.id"  class="card">
                     <img :src="product.img" class="img-fluid mx-auto" alt="...">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
+                    <div class="card-body p-0">
+                        <div class="d-flex justify-content-between p-3">
                             <h5 class="card-title">{{ product.name }}</h5>
                             <h5 class="card-price">{{ product.price | currency('৳') }}</h5>
                         </div>
-                            <a href="#" class="btn btn-primary">Add to Cart</a>
-                        </div>
+                        <add-to-cart
+                            :product-image="product.img"
+                            :price="product.price"
+                            :name="product.name"
+                            :id="product.id"
+                        ></add-to-cart>
+                    </div>
                 </slide>
             </carousel> 
 
