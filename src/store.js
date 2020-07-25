@@ -3,9 +3,11 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+let cart = window.localStorage.getItem('cart');
+
 export default new Vuex.Store({
     state: {
-        cart: [],
+        cart: cart ? JSON.parse(cart): [],
         sidebartoggle: false
     },
     mutations: {
@@ -19,9 +21,21 @@ export default new Vuex.Store({
             } else {
                 state.cart.push(item)
             }
+
+            this.commit('savetoLocalStorage');
         },
         sidebartoggle(state, item) {
             state.sidebartoggle = item
+        },
+
+        savetoLocalStorage(state) {
+            window.localStorage.setItem('cart', JSON.stringify(state.cart));
+        },
+
+        removeItem(state, item) {
+            let index = state.cart.indexOf(item);
+            state.cart.splice(index, 1);
+            this.commit('savetoLocalStorage');
         }
     }
 })

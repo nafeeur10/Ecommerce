@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 import Home from '../components/Home'
 import About from '../components/About'
+import Checkout from '../components/Checkout'
 import Admin from '../Admin/Index'
 import Products from '../Admin/View/Products'
 import Overview from '../Admin/View/Overview'
@@ -29,6 +30,11 @@ export const constantRoutes = [
         path: '/about',
         component: About,
         name: 'About',
+    },
+    {
+        path: '/checkout',
+        component: Checkout,
+        name: 'Checkout',
     },
     {
         path: '/admin',
